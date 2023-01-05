@@ -16,18 +16,18 @@ gotermAnalysis(
 \arguments{
 \item{dge_results}{Object of class "DESeqResults".}
 
-\item{L2FC}{Value of the Log2FoldChange to determine what genes are differently regulated.}
+\item{L2FC}{Numeric value of the Log2FoldChange to determine what genes are differently regulated.}
 
-\item{padjusted}{Value of the adjusted p-value to determine what genes are differently regulated.}
+\item{padjusted}{Numeric value of the adjusted p-value to determine what genes are differently regulated.}
 
 \item{ontologytype}{Type of ontology to search for. Options: "BP", "CC", "MF".}
 
-\item{pcutoff}{Value of what p-values to filter by.}
+\item{pcutoff}{Numeric value of what p-values to filter by.}
 
 \item{upregulated}{Boolean stating whether to look for the upregulated or downregulated genes.}
 }
 \value{
-A dataframe.
+An object of class "data.frame"
 }
 \description{
 Perform a GO-term enrichment analysis

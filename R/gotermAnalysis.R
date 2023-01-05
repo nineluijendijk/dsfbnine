@@ -1,13 +1,13 @@
 #' Perform a GO-term enrichment analysis
 #'
 #' @param dge_results Object of class "DESeqResults".
-#' @param L2FC Value of the Log2FoldChange to determine what genes are differently regulated.
-#' @param padjusted Value of the adjusted p-value to determine what genes are differently regulated.
+#' @param L2FC Numeric value of the Log2FoldChange to determine what genes are differently regulated.
+#' @param padjusted Numeric value of the adjusted p-value to determine what genes are differently regulated.
 #' @param ontologytype Type of ontology to search for. Options: "BP", "CC", "MF".
-#' @param pcutoff Value of what p-values to filter by.
+#' @param pcutoff Numeric value of what p-values to filter by.
 #' @param upregulated Boolean stating whether to look for the upregulated or downregulated genes.
 #'
-#' @return A dataframe.
+#' @return An object of class "data.frame"
 #' @export
 #'
 #' @examples

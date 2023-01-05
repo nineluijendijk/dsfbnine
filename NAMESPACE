@@ -2,4 +2,5 @@
 
 export("%>%")
 export(gotermAnalysis)
+export(gotermPlot)
 importFrom(magrittr,"%>%")
