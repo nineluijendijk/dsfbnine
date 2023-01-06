@@ -43,10 +43,10 @@ illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years 
 
 The function `gotermAnalysis()` was written specifically to help with my analysis of RNA-sequencing data, which is why there are many different parameters to be set: changing just 1 can completely change the results (seen in the code chunk below). The function performs a GO-term enrichment analysis. The output of this function can be used in the next function `gotermPlot()` as well.
 
-```{r gotermAnalysisexample, eval=FALSE}
+```{r gotermAnalysisexample}
 DESeqresults <- readRDS(here::here("inst/extdata/dge_results")) #load the data object of class "DESeqResults"
 
-gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+gotermAnalysis_example <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, test_direction = "over", upregulated = TRUE) {
   if(upregulated == TRUE){
     regulated_genes <- dge_results %>% data.frame() %>%
       dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
@@ -54,27 +54,27 @@ gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype
     regulated_genes <- dge_results %>% data.frame() %>%
       dplyr::filter(log2FoldChange < -L2FC, padj < padjusted) %>% rownames()
   }
-
+  
   all_genes <- dge_results %>% data.frame() %>% rownames()
-  test_object <- methods::new(GOstats:::"GOHyperGParams",
+  test_object <- methods::new("GOHyperGParams",
                               geneIds = regulated_genes,
                               universeGeneIds = all_genes,
                               annotation = "org.Hs.eg.db",
                               ontology = ontologytype,
                               pvalueCutoff = pcutoff,
-                              testDirection = "over")
-
+                              testDirection = test_direction)
+  
   summary(GOstats::hyperGTest(test_object))
 }
 
-gotermAnalysis_results <- gotermAnalysis(DESeqresults)
+gotermAnalysis_results <- gotermAnalysis_example(DESeqresults)
 ```
 
 ### Function gotermPlot()
 
 The function `gotermPlot()` is an extension to the previous `gotermAnalysis()` function, generating a figure containing the most abundant GO-terms.
 
-```{r gotermPlotexample, eval=FALSE}
+```{r gotermPlotexample}
 gotermPlot(gotermAnalysis_results, topamount = 10, plot_title = "Top 10 upregulated GO-terms")
 ```
 

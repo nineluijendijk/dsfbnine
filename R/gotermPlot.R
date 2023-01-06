@@ -24,7 +24,7 @@ gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filt
                                     levels = goterm_results_top$Term[
                                       order(goterm_results_top$padj, decreasing = TRUE)])
 
-  goterm_results_top %>% data.frame() %>% ggplot2::ggplot(aes(x = Term, y = -log10(padj))) +
+  goterm_results_top %>% data.frame() %>% ggplot2::ggplot(ggplot2::aes(x = Term, y = -log10(padj))) +
     ggplot2::geom_point() +
     ggplot2::coord_flip() +
     ggplot2::labs(title = plot_title,
