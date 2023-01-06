@@ -34,7 +34,7 @@ Generate a figure containing the most abundant GO-terms
 }
 \examples{
 \dontrun{
-gotermPlot_results <- gotermPlot(gotermAnalysis_results,
+gotermPlot(gotermAnalysis_results,
 topamount = 5,
 plot_title = "Top 10 upregulated GO-terms")
 }

@@ -23,7 +23,7 @@ Generate a graph showing illness numbers
 }
 \examples{
 \dontrun{
-illnesPlot(data, countries = c("Netherlands", "Belgium", "France"),
+illnessPlot(data, countries = c("Netherlands", "Belgium", "France"),
 years = 2020:2022, parameter = cases)
 }
 }

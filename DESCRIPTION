@@ -13,11 +13,14 @@ Depends:
     R (>= 3.5.0)
 biocViews:
 Imports: 
+    AnnotationDbi,
+    DESeq2,
     dplyr,
     ggplot2,
     GOstats,
     magrittr,
     methods,
+    org.Hs.eg.db,
     scales
 Suggests: 
     testthat (>= 3.0.0)

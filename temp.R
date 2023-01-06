@@ -1,7 +1,6 @@
 library(DESeq2)
 library("org.Hs.eg.db")
 
-resultsdge <- readRDS(here("dge_results"))
 
 gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
   if(upregulated == TRUE){
@@ -24,24 +23,36 @@ gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype
   summary(GOstats::hyperGTest(test_object))
 }
 
-gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filter_to = 500, topamount = 10, plot_title) {
-  goterm_results$padj <- stats::p.adjust(goterm_results$Pvalue, method = padj_method)
-  goterm_results <- goterm_results %>% dplyr::filter(Count > filter_from) %>% dplyr::filter(Count < filter_to)
-  goterm_results_top <- goterm_results[order(goterm_results$padj)[1:topamount],]
-  goterm_results_top$Term <- factor(goterm_results_top$Term,
-                                    levels = goterm_results_top$Term[
-                                      order(goterm_results_top$padj, decreasing = TRUE)])
 
-  goterm_results_top %>% data.frame() %>% ggplot2::ggplot(aes(x = Term, y = -log10(padj))) +
-    ggplot2::geom_point() +
-    ggplot2::coord_flip() +
-    ggplot2::labs(title = plot_title,
-         x = "GO terms",
-         y = expression(-log[10](adjusted~italic(P)~value)))+
-    ggplot2::theme_minimal()
+gotermAnalysis1 <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+  if(upregulated == TRUE){
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
+  } else {
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange < -L2FC, padj < padjusted) %>% rownames()
+  }
+
+  all_genes <- dge_results %>% data.frame() %>% rownames()
+  test_object <- methods::new("GOHyperGParams",
+                              geneIds = regulated_genes,
+                              universeGeneIds = all_genes,
+                              annotation = "org.Hs.eg.db",
+                              ontology = ontologytype,
+                              pvalueCutoff = pcutoff,
+                              testDirection = "over")
+
+  summary(GOstats::hyperGTest(test_object))
+
 }
 
-gotermAnalysis_results <- gotermAnalysis(resultsdge)
+
+results_dge <- readRDS(here::here("inst/extdata/dge_results"))
+ham <- gotermAnalysis(results_dge)
+ham1 <- gotermAnalysis1(results_dge)
+
+all.equal(ham, ham1)
+
 gotermPlot_results <- gotermPlot(gotermAnalysis_results, topamount = 5, plot_title = "Top 10 enriched GO-terms")
 
 class(gotermPlot_results)
@@ -65,7 +76,7 @@ class(ham)
 library(here)
 library(tidyverse)
 
-dataplot <- read.csv(here("data_raw/data.csv"))
+dataplot <- read.csv(here("inst/extdata/datacovid.csv"))
 
 class(dataplot)
 
@@ -102,12 +113,22 @@ max(data_filtered[["deaths"]], na.rm = TRUE)
 
 
 
+dataSummarizer <- function(data, groupBy = "CountryName"){
+  data %>% dplyr::group_by_at(groupBy) %>%
+    dplyr::summarize(total = sum(cases, na.rm = TRUE),
+                     mean = mean(cases, na.rm = TRUE),
+                     median = stats::median(cases, na.rm = TRUE),
+                     standarddeviation = stats::sd(cases, na.rm = TRUE)) %>%
+    dplyr::arrange(desc(mean))
+}
 
+dataSummarizer(measlesdata, groupBy = c("CountryName", "year"))
 
-
-
-
-
+library(tidyverse)
+data("measlesdata")
+?mean
+measlesdata
+library(dplyr)
 
 
 
@@ -148,8 +169,25 @@ datacases <- rbind(data2018, data2019)
 measlesdata <- dplyr::inner_join(datacases, datapopulation, by = c("CountryName", "year"))
 
 save(measlesdata, file = here("data/measlesdata.RData"))
-?attr
-class(measlesdata)
 
+
+
+
+gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filter_to = 500, topamount = 10, plot_title) {
+  goterm_results$padj <- stats::p.adjust(goterm_results$Pvalue, method = padj_method)
+  goterm_results <- goterm_results %>% dplyr::filter(Count > filter_from) %>% dplyr::filter(Count < filter_to)
+  goterm_results_top <- goterm_results[order(goterm_results$padj)[1:topamount],]
+  goterm_results_top$Term <- factor(goterm_results_top$Term,
+                                    levels = goterm_results_top$Term[
+                                      order(goterm_results_top$padj, decreasing = TRUE)])
+
+  goterm_results_top %>% data.frame() %>% ggplot2::ggplot(aes(x = Term, y = -log10(padj))) +
+    ggplot2::geom_point() +
+    ggplot2::coord_flip() +
+    ggplot2::labs(title = plot_title,
+                  x = "GO terms",
+                  y = expression(-log[10](adjusted~italic(P)~value)))+
+    ggplot2::theme_minimal()
+}
 
 

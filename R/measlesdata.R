@@ -14,10 +14,10 @@
 #'
 #' @references European Centre for Disease Prevention and Control (2020)
 #' (\href{https://www.ecdc.europa.eu/en/publications-data/number-measles-cases-month-and-notification-rate-million-population-country-16}{ECDC})
-#' European Centre for Disease Prevention and Control (2019)
+#' , European Centre for Disease Prevention and Control (2019)
 #' (\href{https://www.ecdc.europa.eu/en/publications-data/number-measles-cases-month-and-notification-rate-million-population-country-8}{ECDC})
-#' Eurostat Data Browser (2022)
-#' (\href{https://ec.europa.eu/eurostat/databrowser/view/tps00001/default/table?lang=en}{Eurostat})
+#' , Eurostat Data Browser (2022)
+#' (\href{https://ec.europa.eu/eurostat/databrowser/view/tps00001/default/table?lang=en}{Eurostat}).
 #'
 #' @examples
 #' \donttest{
