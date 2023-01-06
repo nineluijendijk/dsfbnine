@@ -1,5 +1,7 @@
 #' Perform a GO-term enrichment analysis
 #'
+#'
+#'
 #' @param dge_results Object of class "DESeqResults".
 #' @param L2FC Numeric value of the Log2FoldChange to determine what genes are differently regulated.
 #' @param padjusted Numeric value of the adjusted p-value to determine what genes are differently regulated.
@@ -16,15 +18,6 @@
 #' gotermAnalysis(results_dge, ontologytype = "BP", upregulated = FALSE)
 #' }
 gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
-  if(!("GOstats" %in% (.packages()))){
-    library(GOstats)
-  }
-  if(!("org.Hs.eg.db" %in% (.packages()))){
-    library(org.Hs.eg.db)
-  }
-  if(!("DESeqq" %in% (.packages()))){
-    library(DESeq2)
-  }
   if(upregulated == TRUE){
     regulated_genes <- dge_results %>% data.frame() %>%
       dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
@@ -43,5 +36,4 @@ gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype
                               testDirection = "over")
 
   summary(GOstats::hyperGTest(test_object))
-
 }

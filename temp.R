@@ -215,3 +215,5 @@ gotermAnalysis <- function (dge_results, L2FC = 1, padjusted = 0.01, ontologytyp
   summary(GOstats::hyperGTest(test_object))
 }
 
+library(dsfbnine)
+measles <- data(measlesdata)

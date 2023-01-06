@@ -12,20 +12,16 @@ RoxygenNote: 7.2.3
 Depends:
     R (>= 3.5.0)
 biocViews:
-Imports: 
-    AnnotationDbi,
-    DESeq2,
+Imports:
+    devtools,
     dplyr,
     ggplot2,
     GOstats,
     magrittr,
     methods,
-    org.Hs.eg.db,
     scales
 Suggests: 
     knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
+    rmarkdown
 VignetteBuilder: knitr
 LazyData: true

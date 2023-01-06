@@ -1,5 +1,5 @@
 #' @title Dataset containing measles numbers from EU countries
-#' @description Data on measles cases in EU countries and population numbers from
+#' @description Data on measles cases cases and population numbers in EU countries from 2018 and 2019
 #' European Centre for Disease Prevention and Control and Eurostat Data Browser
 #' @format A dataframe with 744 rows and 8 variables:
 #' \describe{

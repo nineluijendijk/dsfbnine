@@ -21,7 +21,7 @@ A dataframe with 744 rows and 8 variables:
 measlesdata
 }
 \description{
-Data on measles cases in EU countries and population numbers from
+Data on measles cases cases and population numbers in EU countries from 2018 and 2019
 European Centre for Disease Prevention and Control and Eurostat Data Browser
 }
 \examples{
