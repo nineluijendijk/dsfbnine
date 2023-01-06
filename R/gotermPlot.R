@@ -14,7 +14,7 @@
 #' \dontrun{
 #' gotermPlot(gotermAnalysis_results,
 #' topamount = 5,
-#' plot_title = "Top 10 upregulated GO-terms")
+#' plot_title = "Top 5 upregulated GO-terms")
 #' }
 gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filter_to = 500, topamount = 10, plot_title) {
   goterm_results$padj <- stats::p.adjust(goterm_results$Pvalue, method = padj_method)

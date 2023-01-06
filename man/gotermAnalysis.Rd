@@ -10,6 +10,7 @@ gotermAnalysis(
   padjusted = 0.01,
   ontologytype = "BP",
   pcutoff = 1,
+  test_direction = "over",
   upregulated = TRUE
 )
 }
@@ -23,6 +24,8 @@ gotermAnalysis(
 \item{ontologytype}{Type of ontology to search for. Options: "BP", "CC", "MF".}
 
 \item{pcutoff}{Numeric value of what p-values to filter by.}
+
+\item{test_direction}{Character string that determines whether to look for over or under represented GO-terms.}
 
 \item{upregulated}{Boolean stating whether to look for the upregulated or downregulated genes.}
 }

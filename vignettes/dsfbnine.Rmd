@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup}
+```{r setuppackage}
 devtools::install_github("nineluijendijk/dsfbnine")
 library(dsfbnine)
 ```
@@ -34,8 +34,47 @@ dataSummarizer(measlesdata, groupBy = c("CountryName", "year")) %>% head(n = 10)
 
 The function `illnessPlot()` generates a graph showing illness numbers, specifically COVID-19 numbers from an [ECDC](https://www.ecdc.europa.eu/en/covid-19/data) dataset, used in [Chapter 6](https://nineluijendijk.github.io/parameterized.html) of my portfolio. The same code was used to generate 4 different plots, to fix this issue `illnessPlot()` was created.
 
-```{r illnessPlotexample}
-coviddata <- read.csv(here::here("inst/extdata/datacovid.csv"))
+```{r illnessPlotexample, fig.height = 5, fig.width = 7.2}
+coviddata <- read.csv(here::here("inst/extdata/datacovid.csv")) #load the data
 illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years = 2020:2022, parameter = cases)
+```
+
+### Function gotermAnalysis()
+
+The function `gotermAnalysis()` was written specifically to help with my analysis of RNA-sequencing data, which is why there are many different parameters to be set: changing just 1 can completely change the results (seen in the code chunk below). The function performs a GO-term enrichment analysis. The output of this function can be used in the next function `gotermPlot()` as well.
+
+```{r gotermAnalysisexample, eval=FALSE}
+DESeqresults <- readRDS(here::here("inst/extdata/dge_results")) #load the data object of class "DESeqResults"
+
+gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+  if(upregulated == TRUE){
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
+  } else {
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange < -L2FC, padj < padjusted) %>% rownames()
+  }
+
+  all_genes <- dge_results %>% data.frame() %>% rownames()
+  test_object <- methods::new(GOstats:::"GOHyperGParams",
+                              geneIds = regulated_genes,
+                              universeGeneIds = all_genes,
+                              annotation = "org.Hs.eg.db",
+                              ontology = ontologytype,
+                              pvalueCutoff = pcutoff,
+                              testDirection = "over")
+
+  summary(GOstats::hyperGTest(test_object))
+}
+
+gotermAnalysis_results <- gotermAnalysis(DESeqresults)
+```
+
+### Function gotermPlot()
+
+The function `gotermPlot()` is an extension to the previous `gotermAnalysis()` function, generating a figure containing the most abundant GO-terms.
+
+```{r gotermPlotexample, eval=FALSE}
+gotermPlot(gotermAnalysis_results, topamount = 10, plot_title = "Top 10 upregulated GO-terms")
 ```
 
