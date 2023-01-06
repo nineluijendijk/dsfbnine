@@ -7,7 +7,7 @@
 #' @param pcutoff Numeric value of what p-values to filter by.
 #' @param upregulated Boolean stating whether to look for the upregulated or downregulated genes.
 #'
-#' @return An object of class "data.frame"
+#' @return An object of class "data.frame".
 #' @export
 #'
 #' @examples

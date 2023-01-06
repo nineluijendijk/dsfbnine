@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataSummarizer.R
 \name{dataSummarizer}
 \alias{dataSummarizer}
-\title{Calculate the sum, mean, median and standard deviation of data by group.}
+\title{Calculate the sum, mean, median and standard deviation of data by group}
 \usage{
 dataSummarizer(data, groupBy = "CountryName")
 }
@@ -15,7 +15,7 @@ dataSummarizer(data, groupBy = "CountryName")
 An object of class "data.frame".
 }
 \description{
-Calculate the sum, mean, median and standard deviation of data by group.
+Calculate the sum, mean, median and standard deviation of data by group
 }
 \examples{
 {

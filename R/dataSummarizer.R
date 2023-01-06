@@ -1,4 +1,4 @@
-#' Calculate the sum, mean, median and standard deviation of data by group.
+#' Calculate the sum, mean, median and standard deviation of data by group
 #'
 #' @param data Object of class "data.frame".
 #' @param groupBy String specifying what columns to group by.

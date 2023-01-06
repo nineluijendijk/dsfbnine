@@ -27,7 +27,7 @@ gotermAnalysis(
 \item{upregulated}{Boolean stating whether to look for the upregulated or downregulated genes.}
 }
 \value{
-An object of class "data.frame"
+An object of class "data.frame".
 }
 \description{
 Perform a GO-term enrichment analysis
