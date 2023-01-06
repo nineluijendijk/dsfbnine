@@ -15,20 +15,33 @@
 #' results_dge <- DESeq2::results(DESeq2::DESeq(DESeqDataSet))
 #' gotermAnalysis(results_dge, ontologytype = "BP", upregulated = FALSE)
 #' }
-gotermAnalysis <- function (dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP",
-          pcutoff = 1, upregulated = TRUE)
-{
-  if (upregulated == TRUE) {
-    regulated_genes <- dge_results %>% data.frame() %>% dplyr::filter(log2FoldChange >
-                                                                        L2FC, padj < padjusted) %>% rownames()
+gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+  if(!("GOstats" %in% (.packages()))){
+    library(GOstats)
   }
-  else {
-    regulated_genes <- dge_results %>% data.frame() %>% dplyr::filter(log2FoldChange <
-                                                                        -L2FC, padj < padjusted) %>% rownames()
+  if(!("org.Hs.eg.db" %in% (.packages()))){
+    library(org.Hs.eg.db)
   }
+  if(!("DESeqq" %in% (.packages()))){
+    library(DESeq2)
+  }
+  if(upregulated == TRUE){
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
+  } else {
+    regulated_genes <- dge_results %>% data.frame() %>%
+      dplyr::filter(log2FoldChange < -L2FC, padj < padjusted) %>% rownames()
+  }
+
   all_genes <- dge_results %>% data.frame() %>% rownames()
-  test_object <- methods::new("GOHyperGParams", geneIds = regulated_genes,
-                              universeGeneIds = all_genes, annotation = "org.Hs.eg.db",
-                              ontology = ontologytype, pvalueCutoff = pcutoff, testDirection = "over")
+  test_object <- methods::new("GOHyperGParams",
+                              geneIds = regulated_genes,
+                              universeGeneIds = all_genes,
+                              annotation = "org.Hs.eg.db",
+                              ontology = ontologytype,
+                              pvalueCutoff = pcutoff,
+                              testDirection = "over")
+
   summary(GOstats::hyperGTest(test_object))
+
 }

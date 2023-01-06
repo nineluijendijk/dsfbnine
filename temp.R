@@ -24,7 +24,11 @@ gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype
 }
 
 
-gotermAnalysis1 <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+
+gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, upregulated = TRUE) {
+  if(!("GOstats" %in% (.packages()))){
+    library(GOstats)
+  }
   if(upregulated == TRUE){
     regulated_genes <- dge_results %>% data.frame() %>%
       dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
@@ -46,10 +50,10 @@ gotermAnalysis1 <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytyp
 
 }
 
-
+library(tidyverse)
 results_dge <- readRDS(here::here("inst/extdata/dge_results"))
 ham <- gotermAnalysis(results_dge)
-ham1 <- gotermAnalysis1(results_dge)
+ham1 <- gotermAnalysis2(results_dge)
 
 all.equal(ham, ham1)
 
@@ -191,3 +195,23 @@ gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filt
 }
 
 ?system.file
+
+
+gotermAnalysis <- function (dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP",
+                            pcutoff = 1, upregulated = TRUE)
+{
+  if (upregulated == TRUE) {
+    regulated_genes <- dge_results %>% data.frame() %>% dplyr::filter(log2FoldChange >
+                                                                        L2FC, padj < padjusted) %>% rownames()
+  }
+  else {
+    regulated_genes <- dge_results %>% data.frame() %>% dplyr::filter(log2FoldChange <
+                                                                        -L2FC, padj < padjusted) %>% rownames()
+  }
+  all_genes <- dge_results %>% data.frame() %>% rownames()
+  test_object <- methods::new("GOHyperGParams", geneIds = regulated_genes,
+                              universeGeneIds = all_genes, annotation = "org.Hs.eg.db",
+                              ontology = ontologytype, pvalueCutoff = pcutoff, testDirection = "over")
+  summary(GOstats::hyperGTest(test_object))
+}
+
