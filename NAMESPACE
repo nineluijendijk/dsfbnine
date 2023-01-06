@@ -3,5 +3,5 @@
 export("%>%")
 export(gotermAnalysis)
 export(gotermPlot)
-export(illnesPlot)
+export(illnessPlot)
 importFrom(magrittr,"%>%")

@@ -13,7 +13,7 @@
 #' illnesPlot(data, countries = c("Netherlands", "Belgium", "France"),
 #' years = 2020:2022, parameter = cases)
 #' }
-illnesPlot <- function(data, countries = "Spain", years = 2020,  parameter = cases){
+illnessPlot <- function(data, countries = "Spain", years = 2020,  parameter = cases){
   string <- deparse(substitute(parameter))
   data_filtered <- data %>% dplyr::filter(countriesAndTerritories %in% countries, year %in% years)
   data_filtered <- dplyr::mutate(data_filtered, "date" = paste(day, month, year, sep="/"))
