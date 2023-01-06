@@ -4,7 +4,7 @@
 \alias{illnessPlot}
 \title{Generate a graph showing illness numbers}
 \usage{
-illnessPlot(data, countries = "Spain", years = 2020, parameter = cases)
+illnessPlot(data, countries = "Spain", years = 2020:2022, parameter = cases)
 }
 \arguments{
 \item{data}{Object of class "data.frame".}

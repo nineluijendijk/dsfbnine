@@ -32,9 +32,10 @@ dataSummarizer(measlesdata, groupBy = c("CountryName", "year")) %>% head(n = 10)
 
 ### Function illnessPlot()
 
-The function `illnessPlot()` 
+The function `illnessPlot()` generates a graph showing illness numbers, specifically COVID-19 numbers from an [ECDC](https://www.ecdc.europa.eu/en/covid-19/data) dataset, used in [Chapter 6](https://nineluijendijk.github.io/parameterized.html) of my portfolio. The same code was used to generate 4 different plots, to fix this issue `illnessPlot()` was created.
 
 ```{r illnessPlotexample}
-illnessPlot(measlesdata, countries = c("Netherlands", "Belgium", "France"), years = 2020:2022, parameter = cases)
+coviddata <- read.csv(here::here("inst/extdata/datacovid.csv"))
+illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years = 2020:2022, parameter = cases)
 ```
 
