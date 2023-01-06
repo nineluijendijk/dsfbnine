@@ -190,4 +190,4 @@ gotermPlot <- function(goterm_results, padj_method = "BH", filter_from = 5, filt
     ggplot2::theme_minimal()
 }
 
-
+?system.file
