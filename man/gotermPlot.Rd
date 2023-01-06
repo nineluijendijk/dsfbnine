@@ -14,7 +14,7 @@ gotermPlot(
 )
 }
 \arguments{
-\item{goterm_results}{Object of class data.frame, output from function gotermAnalysis().}
+\item{goterm_results}{Object of class "data.frame", output from function gotermAnalysis().}
 
 \item{padj_method}{String defining what adjustment method to use. Options: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".}
 
@@ -27,7 +27,7 @@ gotermPlot(
 \item{plot_title}{String defining the plot title.}
 }
 \value{
-A object of class "ggplot".
+An object of class "ggplot".
 }
 \description{
 Generate a figure containing the most abundant GO-terms

@@ -67,6 +67,8 @@ library(tidyverse)
 
 dataplot <- read.csv(here("data_raw/data.csv"))
 
+class(dataplot)
+
 data_filtered <- data %>% filter(countriesAndTerritories %in% c("Spain"), year %in% 2020:2022, month %in% 1:12)
 
 data_filtered <- mutate(data_filtered, "date" = paste(day, month, year, sep="/"))

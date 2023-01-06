@@ -1,13 +1,13 @@
 #' Generate a figure containing the most abundant GO-terms
 #'
-#' @param goterm_results Object of class data.frame, output from function gotermAnalysis().
+#' @param goterm_results Object of class "data.frame", output from function gotermAnalysis().
 #' @param padj_method String defining what adjustment method to use. Options: "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none".
 #' @param filter_from Numeric value that determines the minimum number of times a GO-term needs to appear.
 #' @param filter_to Numeric value that determines the maximum number of times a GO-term can appear.
 #' @param topamount Numeric value that determines the number of GO-terms plotted.
 #' @param plot_title String defining the plot title.
 #'
-#' @return A object of class "ggplot".
+#' @return An object of class "ggplot".
 #' @export
 #'
 #' @examples

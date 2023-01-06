@@ -1,3 +1,18 @@
+#' Generate a graph showing illness numbers
+#'
+#' @param data Object of class "data.frame".
+#' @param countries String specifying what countries to filter by.
+#' @param years Integer specifying what years to filter by.
+#' @param parameter Name of the column of interest, NOT in quotes.
+#'
+#' @return An object of class "ggplot".
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' illnesPlot(data, countries = c("Netherlands", "Belgium", "France"),
+#' years = 2020:2022, parameter = cases)
+#' }
 illnesPlot <- function(data, countries = "Spain", years = 2020,  parameter = cases){
   string <- deparse(substitute(parameter))
   data_filtered <- data %>% dplyr::filter(countriesAndTerritories %in% countries, year %in% years)
