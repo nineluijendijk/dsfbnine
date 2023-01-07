@@ -12,7 +12,7 @@ dataSummarizer(measlesdata, groupBy = c("CountryName", "year")) %>% head(n = 10)
 coviddata <- read.csv(here::here("inst/extdata/datacovid.csv")) #load the data
 illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years = 2020:2022, parameter = cases)
 
-## ----fastaImporterexample, warning=TRUE---------------------------------------
+## ----fastaImporterexample-----------------------------------------------------
 dna <- fastaImporter(here::here("inst/extdata/GenBankIDs2.txt"))
 dna
 
