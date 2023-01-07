@@ -20,6 +20,6 @@ fastaImporter <- function(GenBankIDs, database = "nucleotide"){
   grep("^*$", readLines("temp"), invert = TRUE, value = TRUE) %>% write(file = here::here("sequences.fasta"))
   file.remove("temp")
   dna <- ape::read.FASTA(here::here("sequences.fasta"), type = "DNA")
-  file.remove("sequences.fasta")
+  file.remove(here::here("sequences.fasta"))
   dna
 }
