@@ -27,7 +27,6 @@ gotermAnalysis <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype
   }
 
   all_genes <- dge_results %>% data.frame() %>% rownames()
-  library(GOstats)
   test_object <- methods::new("GOHyperGParams",
                               geneIds = regulated_genes,
                               universeGeneIds = all_genes,

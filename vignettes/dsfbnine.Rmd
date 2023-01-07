@@ -43,7 +43,7 @@ illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years 
 
 The function `gotermAnalysis()` was written specifically to help with my analysis of RNA-sequencing data, which is why there are many different parameters to be set: changing just 1 can completely change the results. The function performs a GO-term enrichment analysis. The output of this function can be used in the next function `gotermPlot()` as well.
 
-```{r gotermAnalysisexample, message=FALSE}
+```{r gotermAnalysisexample, eval=FALSE}
 DESeqresults <- readRDS(here::here("inst/extdata/dge_results")) #load the data object of class "DESeqResults"
 
 gotermAnalysis_results <- gotermAnalysis(DESeqresults)
@@ -54,6 +54,8 @@ gotermAnalysis_results <- gotermAnalysis(DESeqresults)
 The function `gotermPlot()` is an extension to the previous `gotermAnalysis()` function, generating a figure containing the most abundant GO-terms.
 
 ```{r gotermPlotexample, fig.height = 5, fig.width = 7.2, fig.cap="Example GO-term plot."}
+gotermAnalysis_results <- readRDS(here::here("inst/extdata/gotermAnalysis_results"))
+
 gotermPlot(gotermAnalysis_results, topamount = 10, plot_title = "Top 10 upregulated GO-terms")
 ```
 
