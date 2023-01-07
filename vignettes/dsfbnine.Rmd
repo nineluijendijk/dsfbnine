@@ -43,7 +43,7 @@ illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years 
 
 The function `fastaImporter()` can be used to import FASTA sequences by entering their GenBank Identifiers. The imported sequences will be stored in an object of class "DNAbin".
 
-```{r fastaImporterexample, warning=TRUE}
+```{r fastaImporterexample}
 dna <- fastaImporter(here::here("inst/extdata/GenBankIDs2.txt"))
 dna
 ```
