@@ -2,6 +2,7 @@
 
 export("%>%")
 export(dataSummarizer)
+export(fastaImporter)
 export(gotermAnalysis)
 export(gotermPlot)
 export(illnessPlot)

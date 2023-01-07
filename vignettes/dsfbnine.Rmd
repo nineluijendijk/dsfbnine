@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setuppackage, message=FALSE}
+```{r setuppackage, message=FALSE, results='hide', warning=FALSE}
 devtools::install_github("nineluijendijk/dsfbnine")
 library(dsfbnine)
 ```
@@ -38,6 +38,16 @@ The function `illnessPlot()` generates a graph showing illness numbers, specific
 coviddata <- read.csv(here::here("inst/extdata/datacovid.csv")) #load the data
 illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years = 2020:2022, parameter = cases)
 ```
+
+### Function fastaImporter.R
+
+The function `fastaImporter()` can be used to import FASTA sequences by entering their GenBank Identifiers. The imported sequences will be stored in an object of class "DNAbin".
+
+```{r fastaImporterexample}
+dna <- fastaImporter(here::here("inst/extdata/GenBankIDs2.txt"))
+dna
+```
+
 
 ### Function gotermAnalysis()
 

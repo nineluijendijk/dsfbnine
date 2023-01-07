@@ -18,7 +18,9 @@ Imports:
     magrittr,
     methods,
     scales,
-    GOstats
+    GOstats,
+    ape,
+    rentrez
 Suggests: 
     knitr,
     rmarkdown,
