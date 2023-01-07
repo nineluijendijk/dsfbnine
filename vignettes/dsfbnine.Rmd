@@ -41,33 +41,12 @@ illnessPlot(coviddata, countries = c("Netherlands", "Belgium", "France"), years 
 
 ### Function gotermAnalysis()
 
-The function `gotermAnalysis()` was written specifically to help with my analysis of RNA-sequencing data, which is why there are many different parameters to be set: changing just 1 can completely change the results (seen in the code chunk below). The function performs a GO-term enrichment analysis. The output of this function can be used in the next function `gotermPlot()` as well.
+The function `gotermAnalysis()` was written specifically to help with my analysis of RNA-sequencing data, which is why there are many different parameters to be set: changing just 1 can completely change the results. The function performs a GO-term enrichment analysis. The output of this function can be used in the next function `gotermPlot()` as well.
 
 ```{r gotermAnalysisexample, message=FALSE}
 DESeqresults <- readRDS(here::here("inst/extdata/dge_results")) #load the data object of class "DESeqResults"
 
-gotermAnalysis_example <- function(dge_results, L2FC = 1, padjusted = 0.01, ontologytype = "BP", pcutoff = 1, test_direction = "over", upregulated = TRUE) {
-  if(upregulated == TRUE){
-    regulated_genes <- dge_results %>% data.frame() %>%
-      dplyr::filter(log2FoldChange > L2FC, padj < padjusted) %>% rownames()
-  } else {
-    regulated_genes <- dge_results %>% data.frame() %>%
-      dplyr::filter(log2FoldChange < -L2FC, padj < padjusted) %>% rownames()
-  }
-  
-  all_genes <- dge_results %>% data.frame() %>% rownames()
-  test_object <- methods::new("GOHyperGParams",
-                              geneIds = regulated_genes,
-                              universeGeneIds = all_genes,
-                              annotation = "org.Hs.eg.db",
-                              ontology = ontologytype,
-                              pvalueCutoff = pcutoff,
-                              testDirection = test_direction)
-  
-  summary(GOstats::hyperGTest(test_object))
-}
-
-gotermAnalysis_results <- gotermAnalysis_example(DESeqresults)
+gotermAnalysis_results <- gotermAnalysis(DESeqresults)
 ```
 
 ### Function gotermPlot()
